@@ -7,6 +7,7 @@ from bullet import Bullet
 from particle import Particle
 import pygame.gfxdraw
 
+# initialize lists
 bullets = []
 blocks = []
 particles = []
