@@ -42,8 +42,13 @@ def redraw():
 while not done:
     if timer > 0:
         timer -= 1
-    else:   
-        score += 1
+    else:
+        if player1.y >= 150:   
+            score += 1
+        else:
+            score += 3
+    if player1.y <= 150:
+        particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 0, 200, 255))
         timer = 60
     if btime < 15:
         btime += 1

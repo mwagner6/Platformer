@@ -28,7 +28,7 @@ class Player(object):
             self.dire = "Right"
         if keys[pygame.K_UP] and self.jumping == False:
             self.jumping = True
-            self.yvel = 12
+            self.yvel = 15
         if self.jumping == False:
             self.vel *= 0.95
         self.x += self.vel
