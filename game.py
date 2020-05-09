@@ -46,7 +46,7 @@ while not done:
         if player1.y >= 150:   
             score += 1
         else:
-            score += 3
+            score += 4
     if player1.y <= 150:
         particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 0, 200, 255))
         timer = 60
