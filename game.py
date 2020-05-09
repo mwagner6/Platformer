@@ -30,7 +30,7 @@ player1 = Player(100, 460, 20, 40)
 blocks.append(Block(699, 470, 0.5, 200))
 def redraw():
     pygame.gfxdraw.box(screen, (0, 0, 700, 500), (0, 0, 0, 50))
-    player1.draw(screen)
+    player1.draw(screen, life)
     for bullet in bullets:
         bullet.draw(screen)
     for block in blocks:

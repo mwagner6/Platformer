@@ -8,9 +8,9 @@ class Block(object):
         self.v = v
         self.w = w
         self.h = 20
-        rand = random.random()
+        rand = random.random() - 0.5
         self.dir = rand / abs(rand)
-        if dir < 0:
+        if self.dir < 0:
             self.x = 0 - self.w
 
     def draw(self, win):

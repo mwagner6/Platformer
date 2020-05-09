@@ -14,8 +14,10 @@ class Player(object):
         self.yvel = 0
         self.dire = "Right"
 
-    def draw(self, win):
+    def draw(self, win, life):
         pygame.draw.rect(win, (0, 125, 255), (self.x, self.y, self.w, self.h))
+        pygame.draw.rect(win, (255, 0, 0), (self.x - 5, self.y - 15, 30, 5))
+        pygame.draw.rect(win, (0, 255, 0), (self.x - 5, self.y - 15, int(life/4), 5))
 
     def move(self):
         keys = pygame.key.get_pressed()
