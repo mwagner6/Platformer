@@ -7,6 +7,8 @@ from bullet import Bullet
 from particle import Particle
 import pygame.gfxdraw
 
+# this version will give you points when you are high up
+
 # initialize lists
 bullets = []
 blocks = []
