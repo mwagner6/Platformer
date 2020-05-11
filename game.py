@@ -20,16 +20,23 @@ done = False
 counter = 120
 dire = "Right"
 btime = 15
-timer = 60
+timer = 15
 score = 0
 life = 120
 pcounter = 3
+font = pygame.font.Font('freesansbold.ttf', 32) 
+text = font.render(str(score), True, (0, 0, 0), (0, 0, 255))
+textRect = text.get_rect()   
+textRect.center = (350, 40)
+
 
 clock = pygame.time.Clock()
 player1 = Player(100, 460, 20, 40)
 blocks.append(Block(699, 470, 0.5, 200))
 def redraw():
     pygame.gfxdraw.box(screen, (0, 0, 700, 500), (0, 0, 0, 50))
+    text = font.render("Score: " + str(score), True, (50, 50, 50), (0, 0, 0, 0))
+    screen.blit(text, textRect)
     player1.draw(screen, life)
     for bullet in bullets:
         bullet.draw(screen)
@@ -47,10 +54,11 @@ while not done:
             score += 1
         else:
             score += 4
-            life += 15
+            if life <= 117:
+                life += 3
+        timer = 15
     if player1.y <= 150:
         particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 0, 200, 255))
-        timer = 60
     if btime < 15:
         btime += 1
     clock.tick(60)

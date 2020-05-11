@@ -10,7 +10,7 @@ class Particle(object):
         self.g = g
         self.b = b
         self.ra = 1
-        self.life = 20
+        self.life = 45
 
     def draw(self, win):
         pygame.draw.circle(win, (self.r, self.g, self.b), (int(self.x), int(self.y)), self.ra)
