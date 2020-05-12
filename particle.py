@@ -9,7 +9,7 @@ class Particle(object):
         self.r = r
         self.g = g
         self.b = b
-        self.ra = 1
+        self.ra = 2
         self.life = 45
 
     def draw(self, win):

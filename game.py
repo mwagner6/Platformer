@@ -117,7 +117,7 @@ while not done:
             bullets.pop(bullets.index(bullet))
     for particle in particles:
         particle.move()
-        if particle.life <= 0:
+        if particle.y >= 500:
             particles.pop(particles.index(particle))
     if player1.y >= 460:
         player1.y = 460
@@ -125,8 +125,8 @@ while not done:
         player1.jumping = False
         if score >= 3:
             particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 255, 120, 0))
-            life -= 1
-    if life == 0:
+            life -= 2
+    if life <= 0:
         done = True
 
     player1.move()
