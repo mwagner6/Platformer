@@ -15,7 +15,13 @@ class Player(object):
         self.dire = "Right"
 
     def draw(self, win, life):
-        pygame.draw.rect(win, (0, 125, 255), (self.x, self.y, self.w, self.h))
+        pygame.draw.rect(win, (0, 125, 255), (self.x, self.y+5, self.w, self.h-10))
+        pygame.draw.rect(win, (0, 125, 255), (self.x + 5, self.y, self.w-10, 5))
+        pygame.draw.rect(win, (0, 125, 255), (self.x + 5, self.y + self.h - 5, self.w - 10, 5))
+        pygame.draw.circle(win, (0, 125, 255), (int(self.x) + 5, int(self.y) + 5), 5)
+        pygame.draw.circle(win, (0, 125, 255), (int(self.x) + self.w - 5, int(self.y) + 5), 5)
+        pygame.draw.circle(win, (0, 125, 255), (int(self.x) + 5, int(self.y) + self.h - 5), 5)
+        pygame.draw.circle(win, (0, 125, 255), (int(self.x) + self.w - 5, int(self.y) + self.h - 5), 5)
         pygame.draw.rect(win, (255, 0, 0), (self.x - 5, self.y - 15, 30, 5))
         pygame.draw.rect(win, (0, 255, 0), (self.x - 5, self.y - 15, int(life/4), 5))
 
