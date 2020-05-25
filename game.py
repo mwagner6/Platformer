@@ -128,7 +128,10 @@ while not done:
         if player1.x <= block.x + block.w and player1.x > block.x + 20 and player1.y < block.y + block.h and player1.y + 40 >= block.y:
             player1.x = block.x + block.w
             player1.vel = 0
-
+    for enemy in enemies:
+        for bullet in bullets:
+            if np.sqrt((enemy.x-bullet.x)**2 + (enemy.y-bullet.y)**2) <= enemy.ra + bullet.r:
+                enemies.pop(enemies.index(enemy))
     for bullet in bullets:
         bullet.move()
         for block in blocks:

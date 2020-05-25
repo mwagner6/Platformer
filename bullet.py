@@ -5,7 +5,7 @@ class Bullet(object):
         self.x = x
         self.y = y
         self.d = d
-        self.r = 4
+        self.r = 6
         self.v = 15
 
     def draw(self, win):
