@@ -1,10 +1,13 @@
 import pygame
 import random
+import math
+import numpy as np
 
 from player import Player
 from block import Block
 from bullet import Bullet
 from particle import Particle
+from enemy import Enemy
 import pygame.gfxdraw
 
 # this version will give you points when you are high up
@@ -13,6 +16,7 @@ import pygame.gfxdraw
 bullets = []
 blocks = []
 particles = []
+enemies = []
 pygame.init()
 screen = pygame.display.set_mode((700,500))
 pygame.display.set_caption("Max's Game")
@@ -24,10 +28,12 @@ timer = 15
 score = 0
 life = 120
 pcounter = 3
+enemycounter = 60
 font = pygame.font.Font('freesansbold.ttf', 32) 
 text = font.render(str(score), True, (0, 0, 0), (0, 0, 255))
 textRect = text.get_rect()   
 textRect.center = (350, 40)
+
 
 
 clock = pygame.time.Clock()
@@ -44,9 +50,25 @@ def redraw():
         block.draw(screen)
     for particle in particles:
         particle.draw(screen)
+    for enemy in enemies:
+        enemy.draw(screen)
     pygame.display.update()
     
 while not done:
+    if enemycounter >= 0:
+        enemycounter -= 1
+    else:
+        enemycounter = 120
+        if random.random() >= 0.5:
+            if random.random() >= 0.5:
+                enemies.append(Enemy(0, random.random()*500))
+            else:
+                enemies.append(Enemy(700, random.random()*500))
+        else:
+            if random.random() >= 0.5:
+                enemies.append(Enemy(random.random()*700, 0))
+            else:
+                enemies.append(Enemy(random.random()*700, 0))
     if timer > 0:
         timer -= 1
     else:
@@ -130,7 +152,9 @@ while not done:
         done = True
 
     player1.move()
+    for enemy in enemies:
+        enemy.move(player1.x+10, player1.y+20)
     redraw()
 
-    
+     
 pygame.quit()
