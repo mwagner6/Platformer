@@ -8,13 +8,15 @@ from block import Block
 from bullet import Bullet
 from particle import Particle
 from enemy import Enemy
+from bouncer import Bouncer
 import pygame.gfxdraw
 
 # this version will give you points when you are high up
 
 # initialize lists
 bullets = []
-blocks = []
+bouncers = []
+blocks = [] 
 particles = []
 enemies = []
 pygame.init()
@@ -28,6 +30,7 @@ timer = 15
 score = 0
 life = 120
 pcounter = 3
+bouncercount = 180
 enemycounter = 60
 font = pygame.font.Font('freesansbold.ttf', 32) 
 text = font.render(str(score), True, (0, 0, 0), (0, 0, 255))
@@ -52,13 +55,15 @@ def redraw():
         particle.draw(screen)
     for enemy in enemies:
         enemy.draw(screen)
+    for bouncer in bouncers:
+        bouncer.draw(screen)
     pygame.display.update()
     
 while not done:
     if enemycounter >= 0:
         enemycounter -= 1
     else:
-        enemycounter = 120
+        enemycounter = 240
         if random.random() >= 0.5:
             if random.random() >= 0.5:
                 enemies.append(Enemy(0, random.random()*500))
@@ -69,6 +74,11 @@ while not done:
                 enemies.append(Enemy(random.random()*700, 0))
             else:
                 enemies.append(Enemy(random.random()*700, 0))
+    if bouncercount >= 0:
+        bouncercount -= 1
+    else:
+        bouncercount = 180
+        bouncers.append(Bouncer(random.random()*250, random.random()))
     if timer > 0:
         timer -= 1
     else:
@@ -144,6 +154,12 @@ while not done:
         particle.move()
         if particle.y >= 500:
             particles.pop(particles.index(particle))
+    for bouncer in bouncers:
+        bouncer.move()
+        if bouncer.x <= -17 and bouncer.dir == -1:
+            bouncers.pop(bouncers.index(bouncer))
+        elif bouncer.x >= 717 and bouncer.dir == 1:
+            bouncers.pop(bouncers.index(bouncer))
     for enemy in enemies:
         if (enemy.x - (player1.x+10))**2 + (enemy.y - (player1.y+20))**2 <= 100:
             enemies.pop(enemies.index(enemy))
@@ -152,7 +168,7 @@ while not done:
         player1.y = 460
         player1.yvel = 0
         player1.jumping = False
-        if score >= 3:
+        if score >= 15:
             particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 255, 120, 0))
             life -= 2
     if life <= 0:
