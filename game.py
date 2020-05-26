@@ -144,6 +144,10 @@ while not done:
         particle.move()
         if particle.y >= 500:
             particles.pop(particles.index(particle))
+    for enemy in enemies:
+        if (enemy.x - (player1.x+10))**2 + (enemy.y - (player1.y+20))**2 <= 100:
+            enemies.pop(enemies.index(enemy))
+            life -= 10
     if player1.y >= 460:
         player1.y = 460
         player1.yvel = 0
