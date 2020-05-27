@@ -164,6 +164,8 @@ while not done:
         if (enemy.x - (player1.x+10))**2 + (enemy.y - (player1.y+20))**2 <= 100:
             enemies.pop(enemies.index(enemy))
             life -= 10
+            for i in range(0, 20):
+                particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 150, 0, 0))
     if player1.y >= 460:
         player1.y = 460
         player1.yvel = 0
