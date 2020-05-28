@@ -161,10 +161,16 @@ while not done:
         elif bouncer.x >= 717 and bouncer.dir == 1:
             bouncers.pop(bouncers.index(bouncer))
     for enemy in enemies:
-        if (enemy.x - (player1.x+10))**2 + (enemy.y - (player1.y+20))**2 <= 100:
+        if (enemy.x - (player1.x+10))**2 + (enemy.y - (player1.y+20))**2 <= 22**2:
             enemies.pop(enemies.index(enemy))
             life -= 10
             for i in range(0, 20):
+                particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 150, 0, 0))
+    for bouncer in bouncers:
+        if (bouncer.x - (player1.x+10))**2 + (bouncer.y - (player1.y+20))**2 <= 27**2:
+            bouncers.pop(bouncers.index(bouncer))
+            life -= 12
+            for i in range(0, 30):
                 particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 150, 0, 0))
     if player1.y >= 460:
         player1.y = 460
