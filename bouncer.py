@@ -17,6 +17,7 @@ class Bouncer(object):
         self.ra = 17
         self.xv = 2
         self.yv = 0
+        self.bouncercount = 5
 
     def draw(self, win):
         pygame.draw.circle(win, (self.r, self.g, self.b), (int(self.x), int(self.y)), self.ra)
@@ -25,5 +26,7 @@ class Bouncer(object):
         self.x += self.xv * self.dir
         self.y += self.yv
         self.yv += 0.1
-        if self.y >= 483:
+        if self.y >= 483 and self.bouncercount <= 0:
             self.yv = self.yv * -0.9
+            self.bouncercount = 5
+        self.bouncercount -= 1

@@ -160,6 +160,19 @@ while not done:
             bouncers.pop(bouncers.index(bouncer))
         elif bouncer.x >= 717 and bouncer.dir == 1:
             bouncers.pop(bouncers.index(bouncer))
+    for bouncer in bouncers:
+        for block in blocks:
+            if bouncer.x >= block.x - 5 and bouncer.x <= block.x + block.w + 5:
+                if bouncer.y >= block.y-25 and bouncer.y <= block.y-5 and bouncer.bouncercount <= 0:
+                    bouncer.yv = bouncer.yv * -0.9
+                    bouncer.bouncercount = 5
+                    if bouncer.y >= block.y-17:
+                        bouncer.y = block.y-17
+                elif bouncer.y >= block.y + block.h - 5 and bouncer.y <= block.y + block.h + 20:
+                    bouncer.yv = bouncer.yv * -0.9
+                    bouncer.bouncercount = 5
+                    if bouncer.y <= block.y + block.h + 17:
+                        bouncer.y = block.y + block.h + 17
     for enemy in enemies:
         if (enemy.x - (player1.x+10))**2 + (enemy.y - (player1.y+20))**2 <= 22**2:
             enemies.pop(enemies.index(enemy))
