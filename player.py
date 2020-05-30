@@ -25,13 +25,13 @@ class Player(object):
         pygame.draw.rect(win, (255, 0, 0), (self.x - 5, self.y - 15, 30, 5))
         pygame.draw.rect(win, (0, 255, 0), (self.x - 5, self.y - 15, int(life/4), 5))
 
-    def move(self):
+    def move(self, width):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT] and self.x > 10:
             self.vel -= self.xaccel
             self.dire = "Left"
-        if keys[pygame.K_RIGHT] and self.x < 690 - self.w:
+        if keys[pygame.K_RIGHT] and self.x < width - 10 - self.w:
             self.vel += self.xaccel
             self.dire = "Right"
         if keys[pygame.K_UP] and self.jumping == False:
@@ -43,8 +43,8 @@ class Player(object):
         if self.x <= 0:
             self.x = 0
             self.vel = 0
-        if self.x >= 700 - self.w:
-            self.x = 700 - self.w
+        if self.x >= width - self.w:
+            self.x = width - self.w
             self.vel = 0
         if self.jumping == True:
                 self.yvel -= self.yaccel

@@ -197,7 +197,7 @@ while not done:
     if life <= 0:
         done = True
 
-    player1.move()
+    player1.move(width)
     for enemy in enemies:
         enemy.move(player1.x+10, player1.y+20)
     redraw()
