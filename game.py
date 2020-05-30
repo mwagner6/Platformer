@@ -20,7 +20,9 @@ blocks = []
 particles = []
 enemies = []
 pygame.init()
-screen = pygame.display.set_mode((700,500))
+width = 900
+height = 500
+screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Max's Game")
 done = False
 counter = 120
@@ -40,10 +42,10 @@ textRect.center = (350, 40)
 
 
 clock = pygame.time.Clock()
-player1 = Player(100, 460, 20, 40)
-blocks.append(Block(699, 470, 0.5, 200))
+player1 = Player(width / 2, height - 40, 20, 40)
+blocks.append(Block(width - 1, height - 30, 0.5, 200))
 def redraw():
-    pygame.gfxdraw.box(screen, (0, 0, 700, 500), (0, 0, 0, 50))
+    pygame.gfxdraw.box(screen, (0, 0, width, height), (0, 0, 0, 50))
     text = font.render("Score: " + str(score), True, (50, 50, 50), (0, 0, 0, 0))
     screen.blit(text, textRect)
     player1.draw(screen, life)
@@ -66,19 +68,19 @@ while not done:
         enemycounter = 240
         if random.random() >= 0.5:
             if random.random() >= 0.5:
-                enemies.append(Enemy(0, random.random()*500))
+                enemies.append(Enemy(0, random.random()*height))
             else:
-                enemies.append(Enemy(700, random.random()*500))
+                enemies.append(Enemy(width, random.random()*height))
         else:
             if random.random() >= 0.5:
-                enemies.append(Enemy(random.random()*700, 0))
+                enemies.append(Enemy(random.random()*width, 0))
             else:
-                enemies.append(Enemy(random.random()*700, 0))
+                enemies.append(Enemy(random.random()*width, 0))
     if bouncercount >= 0:
         bouncercount -= 1
     else:
         bouncercount = 180
-        bouncers.append(Bouncer(random.random()*250, random.random()))
+        bouncers.append(Bouncer(random.random()*height/2, random.random(), width))
     if timer > 0:
         timer -= 1
     else:
@@ -99,10 +101,10 @@ while not done:
         counter -= 1
     else:
         counter = 90
-        blocks.append(Block(699, random.random()*480, random.random()*5, random.random()*100+100))
+        blocks.append(Block(width-1, random.random()*(height-20), random.random()*5, random.random()*100+100))
     for block in blocks:
         block.move()
-        if block.x >= 700 or block.x <= 0 - block.w:
+        if block.x >= width or block.x <= 0 - block.w:
             blocks.pop(blocks.index(block))
     if keys[pygame.K_SPACE] and btime == 15:
             btime = 0
@@ -148,17 +150,17 @@ while not done:
             if bullet.x >= block.x and bullet.x <= block.x + block.w and bullet.y >= block.y and bullet.y <= block.y + block.h:
                 bullets.pop(bullets.index(bullet))
     for bullet in bullets:
-        if bullet.x >= 700 or bullet.x <= 0:
+        if bullet.x >= width or bullet.x <= 0:
             bullets.pop(bullets.index(bullet))
     for particle in particles:
         particle.move()
-        if particle.y >= 500:
+        if particle.y >= height:
             particles.pop(particles.index(particle))
     for bouncer in bouncers:
-        bouncer.move()
+        bouncer.move(height)
         if bouncer.x <= -17 and bouncer.dir == -1:
             bouncers.pop(bouncers.index(bouncer))
-        elif bouncer.x >= 717 and bouncer.dir == 1:
+        elif bouncer.x >= width + 17 and bouncer.dir == 1:
             bouncers.pop(bouncers.index(bouncer))
     for bouncer in bouncers:
         for block in blocks:
@@ -185,8 +187,8 @@ while not done:
             life -= 12
             for i in range(0, 30):
                 particles.append(Particle(player1.x + random.random()*20, player1.y + random.random()*40, (random.random()-0.5)*5, (random.random()-0.5)*5, 150, 0, 0))
-    if player1.y >= 460:
-        player1.y = 460
+    if player1.y >= height - 40:
+        player1.y = height-40
         player1.yvel = 0
         player1.jumping = False
         if score >= 15:
